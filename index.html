@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Respark — The Constitution</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow-1:#FFCF00;
+    --yellow-2:#FFE066;
+    --ember-1:#FF6A00;
+    --ember-2:#FF3D00;
+    --ember-3:#FFB000;
+    --paper:#FFF9E8;
+    --paper-warm:#FFF2CE;
+    --ink:#3A1F00;
+    --ink-soft:#5C3A12;
+    --maroon:#8A2A00;
+    --line:rgba(138,42,0,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  body{
+    background:
+      radial-gradient(circle at 8% 4%, rgba(255,77,0,0.55), transparent 40%),
+      radial-gradient(circle at 95% 12%, rgba(255,140,0,0.45), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(255,61,0,0.4), transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(255,176,0,0.4), transparent 45%),
+      linear-gradient(160deg, var(--yellow-1), var(--yellow-2) 60%, var(--yellow-1));
+    background-attachment: fixed;
+    font-family:'Inter', system-ui, sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    padding: 0 0 80px;
+  }
+
+  .wrap{ max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    text-align:center;
+    padding: 48px 20px 36px;
+  }
+
+  .glow-orb{
+    position:absolute;
+    top:50%; left:50%;
+    width:480px; height:480px;
+    transform:translate(-50%,-50%);
+    background: radial-gradient(circle, rgba(255,90,0,0.55), rgba(255,170,0,0.25) 45%, transparent 70%);
+    filter: blur(6px);
+    z-index:0;
+    animation: pulse 5s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:0.75; transform:translate(-50%,-50%) scale(1); }
+    50%{ opacity:1; transform:translate(-50%,-50%) scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce){ .glow-orb{ animation:none; } }
+
+  .hero-inner{ position:relative; z-index:1; }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color: var(--maroon);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+
+  h1.title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size: clamp(44px, 9vw, 84px);
+    line-height:0.95;
+    margin:0;
+    color: var(--maroon);
+    text-shadow: 0 0 26px rgba(255,107,0,0.55), 0 0 70px rgba(255,61,0,0.35);
+    letter-spacing:-0.01em;
+  }
+
+  .tagline{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size: clamp(16px, 2.2vw, 21px);
+    color: var(--ink-soft);
+    margin-top:12px;
+  }
+
+  .version-pill{
+    display:inline-block;
+    margin-top:16px;
+    padding:7px 16px;
+    border-radius:999px;
+    background: linear-gradient(90deg, var(--ember-1), var(--ember-2));
+    color:#fff5e0;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.04em;
+    box-shadow: 0 4px 18px rgba(255,61,0,0.45);
+  }
+
+  .intro-line{
+    max-width:580px;
+    margin: 18px auto 0;
+    font-size:14.5px;
+    color: var(--ink-soft);
+    line-height:1.55;
+  }
+
+  /* ---------- TAB NAV ---------- */
+  .tab-nav-sticky{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: linear-gradient(180deg, rgba(255,207,0,0.98), rgba(255,207,0,0.92));
+    backdrop-filter: blur(6px);
+    padding: 12px 20px 10px;
+    border-bottom: 2px solid rgba(138,42,0,0.15);
+    box-shadow: 0 6px 24px rgba(180,60,0,0.12);
+  }
+
+  .tab-nav{
+    max-width: 880px;
+    margin: 0 auto;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .tab-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    padding:9px 15px;
+    border-radius:999px;
+    border:1.5px solid rgba(138,42,0,0.25);
+    background: rgba(255,253,246,0.7);
+    color: var(--ink-soft);
+    cursor:pointer;
+    transition: all 0.18s ease;
+    white-space:nowrap;
+  }
+  .tab-btn:hover{
+    background: rgba(255,253,246,0.95);
+    border-color: var(--ember-1);
+    color: var(--maroon);
+  }
+  .tab-btn.active{
+    background: linear-gradient(90deg, var(--ember-1), var(--ember-2));
+    border-color: transparent;
+    color:#fff7e6;
+    box-shadow: 0 4px 16px rgba(255,61,0,0.4);
+  }
+  .tab-btn:focus-visible{ outline:2px solid var(--maroon); outline-offset:2px; }
+
+  /* ---------- TAB PANELS ---------- */
+  .tab-panel{ display:none; padding-top: 26px; }
+  .tab-panel.active{ display:block; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn{ from{ opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+
+  /* ---------- CONTENT PANELS ---------- */
+  .panel{
+    background: var(--paper);
+    border-radius: 20px;
+    padding: 32px 36px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 0 1px rgba(138,42,0,0.06), 0 18px 50px rgba(180,60,0,0.18), 0 0 80px rgba(255,150,0,0.12);
+    position:relative;
+    overflow:hidden;
+  }
+  .panel::before{
+    content:"";
+    position:absolute; top:-60px; right:-60px; width:180px; height:180px;
+    background: radial-gradient(circle, rgba(255,120,0,0.22), transparent 70%);
+    pointer-events:none;
+  }
+  .panel h2{
+    font-family:'Fraunces', serif;
+    font-weight:800;
+    font-size: 23px;
+    color: var(--maroon);
+    margin: 0 0 6px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .panel h2 .tag{
+    width:6px;height:6px;border-radius:50%;
+    background: var(--ember-1);
+    box-shadow: 0 0 12px var(--ember-1);
+    flex:0 0 auto;
+  }
+  .panel .sub{ font-size:13px; color: var(--ink-soft); font-style:italic; margin-bottom:16px; }
+  .panel p, .panel li{ font-size:15px; line-height:1.65; color: var(--ink); }
+  .panel ul, .panel ol{ padding-left:20px; margin:10px 0; }
+  .panel li{ margin-bottom:7px; }
+  .panel strong{ color: var(--maroon); }
+
+  .quote-box{
+    background: var(--paper-warm);
+    border-left: 4px solid var(--ember-1);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--maroon);
+    margin: 14px 0;
+  }
+
+  hr.divider{
+    border:none; height:3px; border-radius:3px;
+    background: linear-gradient(90deg, var(--ember-3), var(--ember-1), var(--ember-2));
+    margin: 26px 0; opacity:0.85;
+  }
+
+  table{ width:100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; border-radius:10px; overflow:hidden; }
+  thead th{
+    background: linear-gradient(90deg, var(--maroon), #6e2200);
+    color: #fff3da; text-align:left; padding: 10px 14px;
+    font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.05em; text-transform:uppercase;
+  }
+  tbody td{ padding: 10px 14px; border-bottom: 1px solid var(--line); background: #fffdf6; }
+  tbody tr:nth-child(even) td{ background: #fff6da; }
+
+  .badge{
+    display:inline-block; font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:700;
+    padding:3px 10px; border-radius:999px; background: var(--yellow-2); color: var(--maroon);
+    border: 1px solid rgba(138,42,0,0.25);
+  }
+
+  .tier-row{ display:flex; gap:14px; margin: 14px 0; flex-wrap:wrap; }
+  .tier-card{ flex:1 1 200px; background:#fffdf6; border:1px solid var(--line); border-radius:14px; padding:16px; }
+  .tier-card h3{ font-family:'Fraunces',serif; margin:0 0 4px; font-size:17px; color:var(--maroon); }
+  .tier-card .price{ font-family:'JetBrains Mono', monospace; font-weight:700; color: var(--ember-2); font-size:14px; margin-bottom:8px; display:block; }
+  .tier-card p{ font-size:13.5px; margin:0; }
+  .vip-dim{ opacity:0.55; }
+  .vip-dim .price{ color:var(--ink-soft); }
+
+  .checklist-empty{
+    border: 2px dashed rgba(138,42,0,0.25); border-radius:10px; padding: 16px;
+    color: var(--ink-soft); font-style:italic; font-size:14px; text-align:center;
+  }
+
+  .how-to{ text-align:center; padding: 34px 30px 8px; }
+  .how-to p{ color: var(--ink-soft); font-size:14.5px; }
+  .how-to .quote-box{ display:inline-block; text-align:left; max-width:560px; }
+
+  .final-line{
+    font-family:'Fraunces', serif; font-weight:800; font-style:italic; font-size:18px;
+    color: var(--maroon); margin-top: 16px;
+  }
+
+  footer{
+    text-align:center; font-family:'JetBrains Mono', monospace; font-size:11px;
+    letter-spacing:0.08em; text-transform:uppercase; color: rgba(90,40,0,0.55); margin-top: 36px;
+  }
+
+  @media (max-width: 560px){
+    .panel{ padding:22px 18px; }
+    .tier-row{ flex-direction:column; }
+    .tab-btn{ font-size:11px; padding:8px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="glow-orb"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">Skool Community</div>
+      <h1 class="title">RESPARK</h1>
+      <div class="tagline">Remember + Spark, merged.</div>
+      <div class="version-pill">VERSION 1.5 &nbsp;·&nbsp; LAST AMENDED JUNE 28, 2026</div>
+      <p class="intro-line">This is the single source of truth for Respark. Don't rebuild it from scratch in future sessions — feed it. Every new idea has to earn its way into this fire, not start a new one.</p>
+    </div>
+  </div>
+</div>
+
+<div class="tab-nav-sticky">
+  <div class="tab-nav" role="tablist" aria-label="Constitution sections">
+    <button class="tab-btn active" data-tab="foundation" role="tab" aria-selected="true">🔥 Foundation</button>
+    <button class="tab-btn" data-tab="framework" role="tab" aria-selected="false">🪵 Framework</button>
+    <button class="tab-btn" data-tab="pricing" role="tab" aria-selected="false">💰 Pricing</button>
+    <button class="tab-btn" data-tab="voice" role="tab" aria-selected="false">🗣️ Voice &amp; Rules</button>
+    <button class="tab-btn" data-tab="status" role="tab" aria-selected="false">✅ Status</button>
+    <button class="tab-btn" data-tab="howto" role="tab" aria-selected="false">📖 How To Use</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ===================== TAB: FOUNDATION ===================== -->
+  <div class="tab-panel active" id="tab-foundation">
+
+    <div class="panel">
+      <h2><span class="tag"></span>The Mission</h2>
+      <p>We help ambitious people remember who they are so they can build lives, relationships, and businesses that actually reflect it.</p>
+      <div class="quote-box">This isn't self-improvement. It's self-remembrance.</div>
+      <p>You don't need to become someone new. You need to remember who you were before the world told you who to be — and Respark is where that fire gets lit again.</p>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>Who We're Building This For</h2>
+      <p>Not a demographic. A feeling.</p>
+      <p>People who've built success on the outside and quietly checked out on the inside. Entrepreneurs, executives, business couples, parents — doesn't matter the job title or the relationship status. What matters is the sentence running underneath all of it:</p>
+      <div class="quote-box">"I've achieved a lot, but I don't feel like myself anymore."</div>
+      <p>That's who we're talking to. Every time.</p>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>The Enemy</h2>
+      <p>Not failure. Not even burnout.</p>
+      <p style="font-size:20px;font-family:'Fraunces',serif;font-weight:800;color:var(--maroon);">Disconnection.</p>
+      <p>From yourself. Your emotions. Your spouse or partner. Your purpose. Your values. Your own vision for your one life.</p>
+      <p>Respark exists to put that fire back out — by putting a different one <em>on</em>.</p>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>The Transformation</h2>
+      <p><strong>Before:</strong> Surviving a life that looks good and feels empty. Reactive, compartmentalized, performing a version of yourself for an audience that never asked for the performance.</p>
+      <p><strong>After:</strong> Living from remembered identity. Grounded, honestly connected, integrated — business and marriage and self all burning from the same source instead of three separate matches.</p>
+      <div class="quote-box">We help ambitious people remember who they are and build lives they don't have to recover from.</div>
+    </div>
+
+  </div>
+
+  <!-- ===================== TAB: FRAMEWORK ===================== -->
+  <div class="tab-panel" id="tab-framework">
+
+    <div class="panel">
+      <h2><span class="tag"></span>The Five Embers We Tend</h2>
+      <div class="sub">the pain points we address — and what catches fire on the other side</div>
+      <ol>
+        <li><strong>Identity</strong> — "I don't know who I am anymore." → They remember who they are and build from it.</li>
+        <li><strong>Emotional Intelligence</strong> — Burnout, reactivity, anxiety, overwhelm. → They become emotionally resilient. Respond instead of react.</li>
+        <li><strong>Limiting Beliefs &amp; Patterns</strong> — Self-sabotage, people-pleasing, never-enough. → They rewrite the unconscious operating system and choose on purpose.</li>
+        <li><strong>Relationships &amp; Communication</strong> — Distance, conflict avoidance, broken trust. → They build honest, emotionally safe connection.</li>
+        <li><strong>Integration</strong> — Success at the expense of everything else. → Business, family, purpose, health, identity — one fire, not five.</li>
+      </ol>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>The Respark Framework</h2>
+      <ul>
+        <li><strong>R</strong> — Remember Who You Are <em>(identity, values, self-awareness)</em></li>
+        <li><strong>E</strong> — Examine Your Patterns <em>(conditioning, trauma responses, beliefs)</em></li>
+        <li><strong>S</strong> — Stabilize Your Emotions <em>(nervous system, resilience, boundaries)</em></li>
+        <li><strong>P</strong> — Pursue Honest Connection <em>(communication, conflict, leadership)</em></li>
+        <li><strong>A</strong> — Align Your Life <em>(purpose, career, health, money, faith)</em></li>
+        <li><strong>R</strong> — Rebuild Intentionally <em>(habits, systems, environment)</em></li>
+        <li><strong>K</strong> — Keep the Fire Burning <em>(integration, community, legacy)</em></li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>The World We've Built</h2>
+      <ul>
+        <li><strong>Company / Community:</strong> Respark — Remember + Spark, merged.</li>
+        <li><strong>Podcast:</strong> The Campfire — the front porch of the movement. Nobody "listens to an episode." They pull up a chair.</li>
+        <li><strong>Lead magnet:</strong> The Campfire Quiz — 20 questions across five pillars, returns one of five archetypes (The Lost Leader, The High-Functioning Avoider, The Quiet Saboteur, The Lonely in the Room, The Compartmentalizer) plus a full disconnection map.</li>
+        <li><strong>Where the fire lives:</strong> Skool — skool.com/respark</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ===================== TAB: PRICING ===================== -->
+  <div class="tab-panel" id="tab-pricing">
+
+    <div class="panel">
+      <h2><span class="tag"></span>Offers — The Pricing Ladder</h2>
+      <div class="tier-row">
+        <div class="tier-card">
+          <h3>Standard</h3>
+          <span class="price">$7/mo</span>
+          <p>Quiz, monthly Q&amp;A, 5-day challenge, library, community</p>
+        </div>
+        <div class="tier-card">
+          <h3>Premium</h3>
+          <span class="price">$47/mo</span>
+          <p>+ weekly live coaching, monthly hot seats, fire tools, vault</p>
+        </div>
+        <div class="tier-card vip-dim">
+          <h3>VIP <span class="badge">not yet lit</span></h3>
+          <span class="price">$297/mo</span>
+          <p>2x weekly live coaching, hot seat, small mastermind</p>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <p><strong>The Standard → Premium price raise ($7 → ~$47) fires when ALL three are true</strong> — not on a calendar:</p>
+      <ul>
+        <li>25–30 paid Standard members, <strong>and</strong></li>
+        <li>10–15+ showing real engagement (challenge completion, Q&amp;A attendance, posting), <strong>and</strong></li>
+        <li>3–5 pieces of unsolicited positive feedback</li>
+      </ul>
+      <p>Engagement is the actual signal. Signups alone don't light this match.</p>
+
+      <p><strong>Premium bandwidth:</strong> needs a group-size cap decided <em>before</em> ads start — not yet finalized. Don't let this be the thing solved under pressure.</p>
+      <p><strong>VIP activation:</strong> stays dark until Premium is stable at scale for ~60 days. Triggered by observable stability, not revenue panic.</p>
+      <p><strong>Long-range Standard ladder:</strong> $7 → $47 → eventually $97/$125, each step triggered by the engagement criteria above — never just a date on a calendar.</p>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>The Numbers We Actually Watch</h2>
+      <div class="sub">from week one — not glanced at, tracked</div>
+      <table>
+        <thead><tr><th>Benchmark</th><th>What it tells us</th></tr></thead>
+        <tbody>
+          <tr><td>Standard signups (count)</td><td>Is the ad/lead magnet pulling people in</td></tr>
+          <tr><td>Standard engagement rate</td><td>% completing challenge, attending Q&amp;A, posting — the real validation, not signups</td></tr>
+          <tr><td>Unsolicited positive feedback</td><td>Proof the offer is landing, not just that $7 changed hands</td></tr>
+          <tr><td>Standard → Premium upgrade rate</td><td>Whether the ladder actually works, or people stall at $7</td></tr>
+          <tr><td>Premium count vs. call size</td><td>Bandwidth ceiling — when the weekly call stops feeling personal</td></tr>
+          <tr><td>Churn/cancel rate per tier</td><td>Whether people stay past month one — matters more than signups</td></tr>
+          <tr><td>Cost per Standard signup</td><td>Whether $7 covers its own acquisition cost or is a planned loss-leader</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>What Has To Get Decided Before Ads Go Live</h2>
+      <ul>
+        <li><strong>Premium group cap</strong> — pick a number (e.g. 40) now, not after it's already a problem</li>
+        <li><strong>VIP activation threshold</strong> — the Premium member count we're comfortable holding weekly calls for, sustained ~60 days</li>
+        <li><strong>Coaching call ownership split</strong> — Alena vs. Orlando, will get forced into a real answer once Premium has real members on the calendar</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>2026 Projections — Scaffolding, Not Prophecy</h2>
+      <p>Assumptions: modest cold-traffic conversion typical for a $7 low-ticket + quiz lead magnet, ads starting in 1–2 months, no major virality. Ranges to plan bandwidth around, not a forecast carved in stone.</p>
+
+      <p><strong>Conservative — first 6 months of ads</strong></p>
+      <ul>
+        <li>40–80 Standard signups → 15–25% engagement → 10–20 actually active</li>
+        <li>10–20% upgrade to Premium → 8–16 Premium members</li>
+        <li>~$400–900/mo combined — proof-of-concept, not income-replacing yet</li>
+      </ul>
+
+      <p><strong>Moderate — by year-end, assuming the price-raise trigger fires ~month 3–4</strong></p>
+      <ul>
+        <li>150–300 cumulative Standard signups (mix of $7/$47 pricing)</li>
+        <li>Premium grows to 25–50 members if upgrade rate holds</li>
+        <li>~$2,500–5,000/mo by year-end — Premium cap decision stops being theoretical here</li>
+        <li>VIP activation becomes a live conversation around this point, not before</li>
+      </ul>
+
+      <p><strong>Strong — engagement and word-of-mouth compounding</strong> <em>(the 4/1 and 2/4 network advantage doing real work)</em></p>
+      <ul>
+        <li>Premium could realistically push toward 60–100 by year-end</li>
+        <li>This is where the un-finalized Premium cap becomes the actual bottleneck on time — decide the number now, while it's calm</li>
+      </ul>
+
+      <div class="quote-box">The ladder itself is sound. What decides the scenario is ad performance and engagement rate — neither knowable before launch. The job between now and launch isn't more pricing tweaks. It's locking the Premium cap and the call-ownership split.</div>
+    </div>
+
+  </div>
+
+  <!-- ===================== TAB: VOICE & RULES ===================== -->
+  <div class="tab-panel" id="tab-voice">
+
+    <div class="panel">
+      <h2><span class="tag"></span>Brand Voice</h2>
+      <ul>
+        <li>Confident and grounded. No hedging, no fluffy self-help language.</li>
+        <li>Warm and human — never corporate, never clinical.</li>
+        <li>Direct enough to name the pattern out loud; grounded enough that it feels safe, not gimmicky.</li>
+        <li>One resonant metaphor per piece, not five. The fire imagery is seasoning — not the whole meal.</li>
+        <li>Cold-traffic copy gestures at "ancient systems," "your unique wiring," "decoding who you actually are" — it does <strong>not</strong> name Human Design, astrology, or Gene Keys until someone's already inside the funnel.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>What We Never Say</h2>
+      <ul>
+        <li>"Unlock your potential," "level up your life," or other coach-speak wallpaper (unless we're deliberately subverting it)</li>
+        <li>"Just manifest it," "good vibes only," or anything toxic-positive</li>
+        <li>Human Design / astrology / Gene Keys terminology in top-of-funnel, cold-traffic copy</li>
+        <li>Pricing in the quiz CTA or other evergreen assets — keeps it from going stale when offers change</li>
+        <li>Anything implying this is about becoming someone <em>new.</em> The language is always remembering, reconnecting, returning.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>What We Always Believe</h2>
+      <ul>
+        <li>Transformation is remembrance, not reinvention.</li>
+        <li>Conflict and emotional intensity are curriculum, not failure — disconnection is the real enemy, not friction.</li>
+        <li>This work travels through relationship and trust — referral, network, reputation — not cold reach alone.</li>
+        <li>One clear message repeated consistently beats a new rebrand every few months.</li>
+        <li>Business and marriage aren't separate tracks. Integration is the whole point.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ===================== TAB: STATUS ===================== -->
+  <div class="tab-panel" id="tab-status">
+
+    <div class="panel">
+      <h2><span class="tag"></span>Decisions Already Made <span class="badge">don't relitigate</span></h2>
+      <ul>
+        <li><strong>Spelling/stylization:</strong> Respark — Remember + Spark, merged. Settled.</li>
+        <li><strong>Podcast name:</strong> The Campfire</li>
+        <li><strong>Lead magnet:</strong> The Campfire Quiz — standalone HTML file, vanilla JS, no dependencies</li>
+        <li><strong>Quiz CTA:</strong> links to the live Skool page, evergreen (no-pricing) button copy</li>
+        <li>The five embers and the Respark framework above are final until explicitly revisited</li>
+        <li><strong>Pricing structure:</strong> Standard $7/mo, Premium $47/mo, VIP $297/mo (built, dark) — see Pricing tab for what re-lights each tier</li>
+        <li><strong>Mailing address / contact:</strong> Respark — 30 North Gould Street, Suite R, Sheridan, WY 82801. Contact: respark.skool@gmail.com</li>
+        <li><strong>Legal page:</strong> Canonical legal page at <code>resparkskool.github.io/legal</code> — Privacy Policy, Terms of Service, Disclaimer, and Cookie Policy combined on one page, addressable via anchor links (<code>#privacy</code> / <code>#terms</code> / <code>#disclaimer</code> / <code>#cookies</code>)</li>
+        <li><strong>Standard footer (new builds going forward):</strong> © 2026 Respark + mailing address + contact email + links to all four legal-page anchors at <code>resparkskool.github.io/legal</code>. Not retroactively applied to existing artifacts unless requested.</li>
+        <li><strong>Brand independence is absolute:</strong> Respark only, everywhere — no exceptions, including URL slugs. The official Skool link is <code>https://www.skool.com/respark</code>.</li>
+        <li><strong>Respark hyperlink rule:</strong> anytime the word "Respark" appears as text inside an Artifact, it must be hyperlinked to <code>https://www.skool.com/respark</code>. Applies to every standalone HTML artifact going forward — headers, footers, body copy, brand mentions, all of it.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>Still Open <span class="badge">revisit, don't ignore</span></h2>
+      <ul>
+        <li>Premium group cap number (needed before ads)</li>
+        <li>VIP activation member-count threshold (needed before Premium hits 60 days stable)</li>
+        <li>Coaching call ownership split between Alena and Orlando</li>
+        <li>Content calendar / cadence for The Campfire podcast</li>
+        <li>Whether the quiz stays the sole lead magnet or a second one joins it</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>Current Experiments</h2>
+      <div class="sub">log what's being tested, with a date — and the result once you know it</div>
+      <div class="checklist-empty">Nothing logged yet — add your first experiment here.</div>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>Future Ideas — The Spark Pile</h2>
+      <div class="sub">park ideas here instead of chasing every one immediately. Review periodically. Only promote to "Decisions Already Made" once it's actually committed.</div>
+      <div class="checklist-empty">The pile is empty — toss your next idea in here.</div>
+    </div>
+
+    <div class="panel">
+      <h2><span class="tag"></span>Offer Evolution Log</h2>
+      <div class="sub">every pricing decision, launch, and lesson learned — so the reasoning never gets lost</div>
+      <table>
+        <thead><tr><th>Date</th><th>Decision</th><th>Reasoning</th></tr></thead>
+        <tbody>
+          <tr><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ===================== TAB: HOW TO USE ===================== -->
+  <div class="tab-panel" id="tab-howto">
+
+    <div class="panel how-to">
+      <h2 style="justify-content:center;"><span class="tag"></span>How To Feed This Fire</h2>
+      <p>Don't open a new chat to think through a new idea. Open this artifact and say:</p>
+      <div class="quote-box">"Evaluate this against everything already established in the constitution. Does it strengthen or dilute Respark?"</div>
+      <p>Or:</p>
+      <div class="quote-box">"Update the Offers section based on this decision — leave everything else alone."</div>
+      <p class="final-line">Amend it. Argue with it. Build it up ember by ember.<br>Just don't burn it down and start over.</p>
+    </div>
+
+  </div>
+
+  <footer>Respark Business Constitution &nbsp;·&nbsp; v1.5</footer>
+
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-tab');
+
+      buttons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      panels.forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + target).classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
